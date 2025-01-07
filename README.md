@@ -32,8 +32,8 @@ pnpm install
 Categories
 
 - [ ] CREATE a new Category
-- [ ] READ all Categories
-- [ ] READ a single Category
+- [x] READ all Categories
+- [x] READ a single Category (by fuzzy search)
 - [ ] UPDATE a Category
 - [ ] DELETE a Category
 
