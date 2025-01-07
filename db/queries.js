@@ -5,6 +5,15 @@ async function getAllCategories() {
   return rows
 }
 
+async function searchCategories(searchTerm) {
+  const { rows } = await pool.query(
+    'SELECT * FROM categories WHERE name ILIKE $1',
+    [`%${searchTerm}%`]
+  )
+  return rows
+}
+
 module.exports = {
   getAllCategories,
+  searchCategories,
 }
