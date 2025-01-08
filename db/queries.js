@@ -20,8 +20,17 @@ async function insertCategory(name, description) {
   )
 }
 
+async function deleteCategory(categoryId) {
+  const { rows } = await pool.query(
+    `DELETE FROM categories WHERE id = $1 RETURNING *`,
+    [categoryId]
+  )
+  return rows
+}
+
 module.exports = {
   getAllCategories,
   searchCategories,
   insertCategory,
+  deleteCategory,
 }
