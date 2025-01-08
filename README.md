@@ -31,11 +31,11 @@ pnpm install
 
 Categories
 
-- [ ] CREATE a new Category
+- [x] CREATE a new Category
 - [x] READ all Categories
 - [x] READ a single Category (by fuzzy search)
-- [ ] UPDATE a Category
-- [ ] DELETE a Category
+- [x] UPDATE a Category
+- [x] DELETE a Category
 
 Suppliers
 
