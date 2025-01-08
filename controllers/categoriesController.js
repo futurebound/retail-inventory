@@ -16,6 +16,18 @@ async function categoriesListGet(req, res) {
   )
 }
 
+async function createCategoryPost(req, res) {
+  console.log(
+    `saving category name: ${req.body.name} desc: ${req.body.description}`
+  )
+  const { name, description } = req.body
+  await db.insertCategory(name, description)
+
+  // TODO: consider where to redirect
+  res.redirect('/categories')
+}
+
 module.exports = {
   categoriesListGet,
+  createCategoryPost,
 }
