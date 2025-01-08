@@ -18,6 +18,20 @@ VALUES
   ('Tea', 'All teas and tea products, e.g. green, oolong, herbal, etc.'),
   ('Coffee', 'All coffees, e.g. organic medium roast, holiday blend decaf, etc.'),
   ('Miscellaneous', 'Catchall category');
+
+CREATE TABLE suppliers (
+  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(255) NOT NULL,
+  contact_email VARCHAR(255),
+  phone_number VARCHAR(15),
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+INSERT INTO suppliers (name, contact_email, phone_number) 
+VALUES
+  ('Pure Green INC', 'hi@puregreen.com', '0000000000'),
+  ('Roastys Coffee House', 'support@roastys.co', '1234567890');
 `
 
 async function main() {
