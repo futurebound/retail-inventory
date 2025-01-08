@@ -39,11 +39,11 @@ Categories
 
 Suppliers
 
-- [ ] CREATE a new Supplier
-- [ ] READ all Suppliers
-- [ ] READ a single Supplier
-- [ ] UPDATE a Supplier
-- [ ] DELETE a Supplier
+- [x] CREATE a new Supplier
+- [x] READ all Suppliers
+- [x] READ a single Supplier
+- [x] UPDATE a Supplier
+- [x] DELETE a Supplier
 
 Products
 

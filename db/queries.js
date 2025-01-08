@@ -43,10 +43,63 @@ async function deleteCategory(categoryId) {
   return rows
 }
 
+/* ===================== SUPPLIERS ===================== */
+
+async function getAllSuppliers() {
+  const { rows } = await pool.query('SELECT * FROM suppliers')
+  return rows
+}
+
+async function searchSuppliers(searchTerm) {
+  const { rows } = await pool.query(
+    'SELECT * FROM suppliers WHERE name ILIKE $1',
+    [`%${searchTerm}%`]
+  )
+  return rows
+}
+
+async function insertSupplier(name, email, phone) {
+  await pool.query(
+    'INSERT INTO suppliers (name, contact_email, phone_number) VALUES ($1, $2, $3)',
+    [name, email, phone]
+  )
+}
+
+async function updateSupplier(id, name, email, phone) {
+  const { rows } = await pool.query('SELECT * FROM suppliers WHERE id = $1', [
+    id,
+  ])
+
+  if (rows.length > 0) {
+    await pool.query(
+      'UPDATE suppliers SET name = $2, contact_email = $3, phone_number = $4, updated_at = NOW() WHERE id = $1',
+      [id, name, email, phone]
+    )
+  }
+
+  return rows
+}
+
+async function deleteSupplier(id) {
+  const { rows } = await pool.query(
+    `DELETE FROM suppliers WHERE id = $1 RETURNING *`,
+    [id]
+  )
+  return rows
+}
+
+/* ===================== EXPORTS ===================== */
+
 module.exports = {
   getAllCategories,
   searchCategories,
   insertCategory,
   updateCategory,
   deleteCategory,
+
+  getAllSuppliers,
+  searchSuppliers,
+  insertSupplier,
+  updateSupplier,
+  deleteSupplier,
 }
