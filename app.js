@@ -9,8 +9,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 const categoriesRouter = require('./routes/categoriesRouter')
+const suppliersRouter = require('./routes/suppliersRouter')
 
 app.use('/categories', categoriesRouter)
+app.use('/suppliers', suppliersRouter)
 
 // error catch-all
 app.use((err, req, res, next) => {
