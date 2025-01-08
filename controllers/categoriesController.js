@@ -16,7 +16,7 @@ async function categoriesListGet(req, res) {
   )
 }
 
-async function createCategoryPost(req, res) {
+async function categoryCreatePost(req, res) {
   console.log(
     `saving category name: ${req.body.name} desc: ${req.body.description}`
   )
@@ -27,7 +27,24 @@ async function createCategoryPost(req, res) {
   res.redirect('/categories')
 }
 
+async function categoryDelete(req, res) {
+  console.log(`deleting category id = ${req.params.id}`)
+  const { id } = req.params
+  const deleted = await db.deleteCategory(id)
+  console.log(deleted)
+
+  if (deleted.length > 0) {
+    res.status(200).json({ message: 'Category deleted successfully.' })
+  } else {
+    res.status(404).json({ message: 'Category not found. ' })
+  }
+
+  // TODO: consider where to redirect
+  // res.redirect('/categories')
+}
+
 module.exports = {
   categoriesListGet,
-  createCategoryPost,
+  categoryCreatePost,
+  categoryDelete,
 }
