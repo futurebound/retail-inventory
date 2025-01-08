@@ -32,7 +32,15 @@ async function categoryDelete(req, res) {
   const { id } = req.params
   const deleted = await db.deleteCategory(id)
   console.log(deleted)
-  res.redirect('/categories')
+
+  if (deleted.length > 0) {
+    res.status(200).json({ message: 'Category deleted successfully.' })
+  } else {
+    res.status(404).json({ message: 'Category not found. ' })
+  }
+
+  // TODO: consider where to redirect
+  // res.redirect('/categories')
 }
 
 module.exports = {
