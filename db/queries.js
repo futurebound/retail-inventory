@@ -152,6 +152,14 @@ async function updateProduct(
   return rows
 }
 
+async function deleteProduct(id) {
+  const { rows } = await pool.query(
+    `DELETE FROM products WHERE id = $1 RETURNING *`,
+    [id],
+  )
+  return rows
+}
+
 /* ===================== EXPORTS ===================== */
 
 module.exports = {
@@ -171,4 +179,5 @@ module.exports = {
   searchProducts,
   insertProduct,
   updateProduct,
+  deleteProduct,
 }
