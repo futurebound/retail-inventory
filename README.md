@@ -47,11 +47,14 @@ Suppliers
 
 Products
 
-- [ ] CREATE a new Product
-- [ ] READ all Products
+- [x] CREATE a new Product
+- [x] READ all Products
+- [x] READ Products by fuzzy search
 - [ ] READ a single Product
-- [ ] UPDATE a Product
-- [ ] DELETE a Product
+- [ ] READ all Products by Category
+- [ ] READ all Product by Supplier
+- [x] UPDATE a Product
+- [x] DELETE a Product
 
 **Before proceeding, confirm the following behavior:**
 
