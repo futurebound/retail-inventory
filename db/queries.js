@@ -102,6 +102,20 @@ async function searchProducts(searchTerm) {
   return rows
 }
 
+async function insertProduct(
+  name,
+  description,
+  price,
+  stockQuantity,
+  categoryId,
+  supplierId
+) {
+  await pool.query(
+    'INSERT INTO products (name, description, price, stock_quantity, category_id, supplier_id) VALUES ($1, $2, $3, $4, $5, $6)',
+    [name, description, price, stockQuantity, categoryId, supplierId]
+  )
+}
+
 /* ===================== EXPORTS ===================== */
 
 module.exports = {
@@ -119,4 +133,5 @@ module.exports = {
 
   getAllProducts,
   searchProducts,
+  insertProduct,
 }

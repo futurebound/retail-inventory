@@ -3,5 +3,6 @@ const productsController = require('../controllers/productsController')
 const productsRouter = Router()
 
 productsRouter.get('/', productsController.productsListGet)
+productsRouter.post('/', productsController.productCreatePost)
 
 module.exports = productsRouter
