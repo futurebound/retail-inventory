@@ -56,8 +56,22 @@ async function productUpdatePut(req, res) {
   }
 }
 
+async function productDelete(req, res) {
+  console.log(`deleting product id = ${req.params.id}`)
+  const { id } = req.params
+  const deleted = await db.deleteProduct(id)
+  console.log(deleted) // TODO: remove log
+
+  if (deleted.length > 0) {
+    res.status(200).json({ message: 'Product deleted successfully.' })
+  } else {
+    res.status(404).json({ message: 'Product not found. ' })
+  }
+}
+
 module.exports = {
   productsListGet,
   productCreatePost,
   productUpdatePut,
+  productDelete,
 }
