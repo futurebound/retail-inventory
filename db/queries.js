@@ -8,7 +8,7 @@ async function getAllCategories() {
 async function searchCategories(searchTerm) {
   const { rows } = await pool.query(
     'SELECT * FROM categories WHERE name ILIKE $1',
-    [`%${searchTerm}%`]
+    [`%${searchTerm}%`],
   )
   return rows
 }
@@ -16,7 +16,7 @@ async function searchCategories(searchTerm) {
 async function insertCategory(name, description) {
   await pool.query(
     'INSERT INTO categories (name, description) VALUES ($1, $2)',
-    [name, description]
+    [name, description],
   )
 }
 
@@ -28,7 +28,7 @@ async function updateCategory(id, name, description) {
   if (rows.length > 0) {
     await pool.query(
       'UPDATE categories SET name = $2, description = $3 WHERE id = $1',
-      [id, name, description]
+      [id, name, description],
     )
   }
 
@@ -38,7 +38,7 @@ async function updateCategory(id, name, description) {
 async function deleteCategory(categoryId) {
   const { rows } = await pool.query(
     `DELETE FROM categories WHERE id = $1 RETURNING *`,
-    [categoryId]
+    [categoryId],
   )
   return rows
 }
@@ -53,7 +53,7 @@ async function getAllSuppliers() {
 async function searchSuppliers(searchTerm) {
   const { rows } = await pool.query(
     'SELECT * FROM suppliers WHERE name ILIKE $1',
-    [`%${searchTerm}%`]
+    [`%${searchTerm}%`],
   )
   return rows
 }
@@ -61,7 +61,7 @@ async function searchSuppliers(searchTerm) {
 async function insertSupplier(name, email, phone) {
   await pool.query(
     'INSERT INTO suppliers (name, contact_email, phone_number) VALUES ($1, $2, $3)',
-    [name, email, phone]
+    [name, email, phone],
   )
 }
 
@@ -73,7 +73,7 @@ async function updateSupplier(id, name, email, phone) {
   if (rows.length > 0) {
     await pool.query(
       'UPDATE suppliers SET name = $2, contact_email = $3, phone_number = $4, updated_at = NOW() WHERE id = $1',
-      [id, name, email, phone]
+      [id, name, email, phone],
     )
   }
 
@@ -83,7 +83,7 @@ async function updateSupplier(id, name, email, phone) {
 async function deleteSupplier(id) {
   const { rows } = await pool.query(
     `DELETE FROM suppliers WHERE id = $1 RETURNING *`,
-    [id]
+    [id],
   )
   return rows
 }
@@ -97,7 +97,7 @@ async function getAllProducts() {
 async function searchProducts(searchTerm) {
   const { rows } = await pool.query(
     'SELECT * FROM products WHERE name ILIKE $1',
-    [`%${searchTerm}%`]
+    [`%${searchTerm}%`],
   )
   return rows
 }
@@ -108,12 +108,48 @@ async function insertProduct(
   price,
   stockQuantity,
   categoryId,
-  supplierId
+  supplierId,
 ) {
   await pool.query(
     'INSERT INTO products (name, description, price, stock_quantity, category_id, supplier_id) VALUES ($1, $2, $3, $4, $5, $6)',
-    [name, description, price, stockQuantity, categoryId, supplierId]
+    [name, description, price, stockQuantity, categoryId, supplierId],
   )
+}
+
+async function updateProduct(
+  id,
+  name,
+  description,
+  price,
+  stockQuantity,
+  categoryId,
+  supplierId,
+) {
+  const { rows } = await pool.query('SELECT * FROM products WHERE id = $1', [
+    id,
+  ])
+  console.log('before update: ', rows)
+
+  // TODO: add confirmation that categoryId and supplierId both valid
+
+  if (rows.length > 0) {
+    await pool.query(
+      `UPDATE products 
+        SET 
+          name = $2, 
+          description = $3,
+          price = $4, 
+          stock_quantity = $5, 
+          category_id = $6, 
+          supplier_id = $7, 
+          updated_at = NOW()
+        WHERE
+          id = $1;`,
+      [id, name, description, price, stockQuantity, categoryId, supplierId],
+    )
+  }
+
+  return rows
 }
 
 /* ===================== EXPORTS ===================== */
@@ -134,4 +170,5 @@ module.exports = {
   getAllProducts,
   searchProducts,
   insertProduct,
+  updateProduct,
 }

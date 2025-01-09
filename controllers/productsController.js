@@ -19,7 +19,7 @@ async function productCreatePost(req, res) {
     req.body
   console.log(
     `saving product name: ${name} description: ${description} price: ${price} 
-     stockQuantity: ${stockQuantity} categoryId: ${categoryId} supplierId: ${supplierId}`
+     stockQuantity: ${stockQuantity} categoryId: ${categoryId} supplierId: ${supplierId}`,
   )
   await db.insertProduct(
     name,
@@ -27,13 +27,37 @@ async function productCreatePost(req, res) {
     price,
     stockQuantity,
     categoryId,
-    supplierId
+    supplierId,
   )
 
   res.redirect('/products')
 }
 
+async function productUpdatePut(req, res) {
+  console.log(`updating product id = ${req.params.id}`)
+  const { id } = req.params
+  const { name, description, price, stockQuantity, categoryId, supplierId } =
+    req.body
+  const updated = await db.updateProduct(
+    id,
+    name,
+    description,
+    price,
+    stockQuantity,
+    categoryId,
+    supplierId,
+  )
+  console.log(updated) // TODO: remove log
+
+  if (updated.length > 0) {
+    res.status(200).json({ message: 'Product updated successfully.' })
+  } else {
+    res.status(404).json({ message: 'Product not found. ' })
+  }
+}
+
 module.exports = {
   productsListGet,
   productCreatePost,
+  productUpdatePut,
 }
