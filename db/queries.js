@@ -88,6 +88,20 @@ async function deleteSupplier(id) {
   return rows
 }
 
+/* ===================== PRODUCTS ===================== */
+async function getAllProducts() {
+  const { rows } = await pool.query('SELECT * FROM products')
+  return rows
+}
+
+async function searchProducts(searchTerm) {
+  const { rows } = await pool.query(
+    'SELECT * FROM products WHERE name ILIKE $1',
+    [`%${searchTerm}%`]
+  )
+  return rows
+}
+
 /* ===================== EXPORTS ===================== */
 
 module.exports = {
@@ -102,4 +116,7 @@ module.exports = {
   insertSupplier,
   updateSupplier,
   deleteSupplier,
+
+  getAllProducts,
+  searchProducts,
 }
