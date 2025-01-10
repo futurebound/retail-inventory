@@ -5,6 +5,14 @@ async function getAllCategories() {
   return rows
 }
 
+async function getCategory(id) {
+  const { rows } = await pool.query(`SELECT * FROM categories WHERE id = $1`, [
+    id,
+  ])
+
+  return rows
+}
+
 async function searchCategories(searchTerm) {
   const { rows } = await pool.query(
     'SELECT * FROM categories WHERE name ILIKE $1',
@@ -21,6 +29,7 @@ async function insertCategory(name, description) {
 }
 
 async function updateCategory(id, name, description) {
+  // TODO: consider db.getCategory(id) here instead
   const { rows } = await pool.query('SELECT * FROM categories WHERE id = $1', [
     id,
   ])
@@ -164,6 +173,7 @@ async function deleteProduct(id) {
 
 module.exports = {
   getAllCategories,
+  getCategory,
   searchCategories,
   insertCategory,
   updateCategory,

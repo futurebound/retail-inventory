@@ -34,6 +34,7 @@ Categories
 - [x] CREATE a new Category
 - [x] READ all Categories
 - [x] READ a single Category (by fuzzy search)
+- [ ] READ single Category by id
 - [x] UPDATE a Category
 - [x] DELETE a Category
 

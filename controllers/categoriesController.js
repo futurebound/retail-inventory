@@ -12,13 +12,23 @@ async function categoriesListGet(req, res) {
 
   console.log('Categories: ', categories)
   res.send(
-    'Categories: ' + categories.map((category) => category.name).join(', ')
+    'Categories: ' + categories.map((category) => category.name).join(', '),
   )
+}
+
+async function categoryGet(req, res) {
+  const { id } = req.params
+  category = await db.getCategory(id)
+  if (category.length > 0) {
+    res.json({ category: category })
+  } else {
+    res.status(404).json({ message: 'Category not found. ' })
+  }
 }
 
 async function categoryCreatePost(req, res) {
   console.log(
-    `saving category name: ${req.body.name} desc: ${req.body.description}`
+    `saving category name: ${req.body.name} desc: ${req.body.description}`,
   )
   const { name, description } = req.body
   await db.insertCategory(name, description)
@@ -62,6 +72,7 @@ async function categoryDelete(req, res) {
 
 module.exports = {
   categoriesListGet,
+  categoryGet,
   categoryCreatePost,
   categoryUpdatePut,
   categoryDelete,
