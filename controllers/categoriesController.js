@@ -10,10 +10,7 @@ async function categoriesListGet(req, res) {
     categories = await db.getAllCategories()
   }
 
-  console.log('Categories: ', categories)
-  res.send(
-    'Categories: ' + categories.map((category) => category.name).join(', '),
-  )
+  res.json({ categories: categories })
 }
 
 async function categoryGet(req, res) {
