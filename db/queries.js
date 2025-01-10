@@ -1,15 +1,15 @@
 const pool = require('./pool')
 
-async function getAllCategories() {
-  const { rows } = await pool.query('SELECT * FROM categories')
-  return rows
-}
-
 async function getCategory(id) {
   const { rows } = await pool.query(`SELECT * FROM categories WHERE id = $1`, [
     id,
   ])
 
+  return rows
+}
+
+async function getAllCategories() {
+  const { rows } = await pool.query('SELECT * FROM categories')
   return rows
 }
 
@@ -53,6 +53,14 @@ async function deleteCategory(categoryId) {
 }
 
 /* ===================== SUPPLIERS ===================== */
+
+async function getSupplier(id) {
+  const { rows } = await pool.query(`SELECT * FROM suppliers WHERE id = $1`, [
+    id,
+  ])
+
+  return rows
+}
 
 async function getAllSuppliers() {
   const { rows } = await pool.query('SELECT * FROM suppliers')
@@ -172,13 +180,14 @@ async function deleteProduct(id) {
 /* ===================== EXPORTS ===================== */
 
 module.exports = {
-  getAllCategories,
   getCategory,
+  getAllCategories,
   searchCategories,
   insertCategory,
   updateCategory,
   deleteCategory,
 
+  getSupplier,
   getAllSuppliers,
   searchSuppliers,
   insertSupplier,

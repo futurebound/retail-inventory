@@ -12,13 +12,23 @@ async function suppliersListGet(req, res) {
 
   console.log('Suppliers: ', suppliers)
   res.send(
-    'Suppliers: ' + suppliers.map((supplier) => supplier.name).join(', ')
+    'Suppliers: ' + suppliers.map((supplier) => supplier.name).join(', '),
   )
+}
+
+async function supplierGet(req, res) {
+  const { id } = req.params
+  supplier = await db.getSupplier(id)
+  if (supplier.length > 0) {
+    res.json({ supplier: supplier })
+  } else {
+    res.status(404).json({ supplier: 'Supplier not found. ' })
+  }
 }
 
 async function supplierCreatePost(req, res) {
   console.log(
-    `saving supplier name: ${req.body.name} email: ${req.body.email} phone: ${req.body.phone}`
+    `saving supplier name: ${req.body.name} email: ${req.body.email} phone: ${req.body.phone}`,
   )
   const { name, email, phone } = req.body
   await db.insertSupplier(name, email, phone)
@@ -62,6 +72,7 @@ async function supplierDelete(req, res) {
 
 module.exports = {
   suppliersListGet,
+  supplierGet,
   supplierCreatePost,
   supplierUpdatePut,
   supplierDelete,
