@@ -6,7 +6,7 @@ async function supplierGet(req, res) {
   if (supplier.length > 0) {
     res.json({ supplier: supplier })
   } else {
-    res.status(404).json({ supplier: 'Supplier not found. ' })
+    res.status(404).json({ message: 'Supplier not found.' })
   }
 }
 

@@ -18,12 +18,23 @@ async function categoriesListGet(req, res) {
 
 async function categoryGet(req, res) {
   const { id } = req.params
-  category = await db.getCategory(id)
+  const category = await db.getCategory(id)
   if (category.length > 0) {
     res.json({ category: category })
   } else {
     res.status(404).json({ message: 'Category not found. ' })
   }
+}
+
+async function categoryProductsGet(req, res) {
+  const { id } = req.params
+  const category = await db.getCategory(id)
+  if (category.length == 0) {
+    return res.status(404).json({ message: 'Category not found. ' })
+  }
+
+  const products = await db.getProductsByCategory(id)
+  res.json({ products: products })
 }
 
 async function categoryCreatePost(req, res) {
@@ -73,6 +84,7 @@ async function categoryDelete(req, res) {
 module.exports = {
   categoriesListGet,
   categoryGet,
+  categoryProductsGet,
   categoryCreatePost,
   categoryUpdatePut,
   categoryDelete,
