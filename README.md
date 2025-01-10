@@ -32,17 +32,18 @@ pnpm install
 Categories
 
 - [x] CREATE a new Category
+- [x] READ single Category by id
 - [x] READ all Categories
-- [x] READ a single Category (by fuzzy search)
-- [ ] READ single Category by id
+- [x] READ Categories by fuzzy search
 - [x] UPDATE a Category
 - [x] DELETE a Category
 
 Suppliers
 
 - [x] CREATE a new Supplier
+- [x] READ single Supplier by id
 - [x] READ all Suppliers
-- [x] READ a single Supplier
+- [x] READ Suppliers by fuzzy search
 - [x] UPDATE a Supplier
 - [x] DELETE a Supplier
 
@@ -51,7 +52,7 @@ Products
 - [x] CREATE a new Product
 - [x] READ all Products
 - [x] READ Products by fuzzy search
-- [ ] READ a single Product
+- [x] READ a single Product
 - [ ] READ all Products by Category
 - [ ] READ all Product by Supplier
 - [x] UPDATE a Product
@@ -59,7 +60,6 @@ Products
 
 **Before proceeding, confirm the following behavior:**
 
-- [ ] All new Products have an associated Supplier
 - [ ] Can query to view all Products associated with a single Supplier
 - [ ] Can query to view all Products associated with a single Category
 

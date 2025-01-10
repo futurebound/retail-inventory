@@ -107,6 +107,15 @@ async function deleteSupplier(id) {
 }
 
 /* ===================== PRODUCTS ===================== */
+
+async function getProduct(id) {
+  const { rows } = await pool.query(`SELECT * FROM products WHERE id = $1`, [
+    id,
+  ])
+
+  return rows
+}
+
 async function getAllProducts() {
   const { rows } = await pool.query('SELECT * FROM products')
   return rows
@@ -128,10 +137,16 @@ async function insertProduct(
   categoryId,
   supplierId,
 ) {
-  await pool.query(
-    'INSERT INTO products (name, description, price, stock_quantity, category_id, supplier_id) VALUES ($1, $2, $3, $4, $5, $6)',
+  const { rows } = await pool.query(
+    `INSERT INTO products (
+        name, description, price, stock_quantity, category_id, supplier_id
+      ) 
+      VALUES ($1, $2, $3, $4, $5, $6) 
+      RETURNING *`,
     [name, description, price, stockQuantity, categoryId, supplierId],
   )
+
+  return rows
 }
 
 async function updateProduct(
@@ -195,6 +210,7 @@ module.exports = {
   updateSupplier,
   deleteSupplier,
 
+  getProduct,
   getAllProducts,
   searchProducts,
   insertProduct,

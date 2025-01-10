@@ -1,5 +1,15 @@
 const db = require('../db/queries')
 
+async function productGet(req, res) {
+  const { id } = req.params
+  product = await db.getProduct(id)
+  if (product.length > 0) {
+    res.json({ product: product })
+  } else {
+    res.status(404).json({ message: 'Product not found.' })
+  }
+}
+
 async function productsListGet(req, res) {
   const { search } = req.query
   let products
@@ -10,8 +20,7 @@ async function productsListGet(req, res) {
     products = await db.getAllProducts()
   }
 
-  console.log('Products: ', products)
-  res.send('Products: ' + products.map((product) => product.name).join(', '))
+  res.json({ products: products })
 }
 
 async function productCreatePost(req, res) {
@@ -21,7 +30,7 @@ async function productCreatePost(req, res) {
     `saving product name: ${name} description: ${description} price: ${price} 
      stockQuantity: ${stockQuantity} categoryId: ${categoryId} supplierId: ${supplierId}`,
   )
-  await db.insertProduct(
+  const product = await db.insertProduct(
     name,
     description,
     price,
@@ -30,7 +39,7 @@ async function productCreatePost(req, res) {
     supplierId,
   )
 
-  res.redirect('/products')
+  res.status(201).json({ product: product })
 }
 
 async function productUpdatePut(req, res) {
@@ -50,7 +59,7 @@ async function productUpdatePut(req, res) {
   console.log(updated) // TODO: remove log
 
   if (updated.length > 0) {
-    res.status(200).json({ message: 'Product updated successfully.' })
+    res.status(204).json({ message: 'Product updated successfully.' })
   } else {
     res.status(404).json({ message: 'Product not found. ' })
   }
@@ -63,13 +72,14 @@ async function productDelete(req, res) {
   console.log(deleted) // TODO: remove log
 
   if (deleted.length > 0) {
-    res.status(200).json({ message: 'Product deleted successfully.' })
+    res.status(204).json({ message: 'Product deleted successfully.' })
   } else {
     res.status(404).json({ message: 'Product not found. ' })
   }
 }
 
 module.exports = {
+  productGet,
   productsListGet,
   productCreatePost,
   productUpdatePut,
