@@ -76,10 +76,11 @@ async function searchSuppliers(searchTerm) {
 }
 
 async function insertSupplier(name, email, phone) {
-  await pool.query(
-    'INSERT INTO suppliers (name, contact_email, phone_number) VALUES ($1, $2, $3)',
+  const { rows } = await pool.query(
+    'INSERT INTO suppliers (name, contact_email, phone_number) VALUES ($1, $2, $3) RETURNING *',
     [name, email, phone],
   )
+  return rows
 }
 
 async function updateSupplier(id, name, email, phone) {
