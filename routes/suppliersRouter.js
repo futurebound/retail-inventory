@@ -4,6 +4,7 @@ const suppliersRouter = Router()
 
 suppliersRouter.get('/', suppliersController.suppliersListGet)
 suppliersRouter.get('/:id', suppliersController.supplierGet)
+suppliersRouter.get('/:id/products', suppliersController.supplierProductsGet)
 suppliersRouter.post('/', suppliersController.supplierCreatePost)
 suppliersRouter.put('/:id', suppliersController.supplierUpdatePut)
 suppliersRouter.delete('/:id', suppliersController.supplierDelete)

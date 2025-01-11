@@ -129,6 +129,14 @@ async function getProductsByCategory(id) {
   return rows
 }
 
+async function getProductsBySupplier(id) {
+  const { rows } = await pool.query(
+    'SELECT * FROM products WHERE supplier_id = $1',
+    [id],
+  )
+  return rows
+}
+
 async function searchProducts(searchTerm) {
   const { rows } = await pool.query(
     'SELECT * FROM products WHERE name ILIKE $1',
@@ -221,6 +229,7 @@ module.exports = {
   getProduct,
   getAllProducts,
   getProductsByCategory,
+  getProductsBySupplier,
   searchProducts,
   insertProduct,
   updateProduct,

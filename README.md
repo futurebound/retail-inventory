@@ -53,15 +53,15 @@ Products
 - [x] READ all Products
 - [x] READ Products by fuzzy search
 - [x] READ a single Product
-- [ ] READ all Products by Category
-- [ ] READ all Product by Supplier
+- [x] READ all Products by Category
+- [x] READ all Product by Supplier
 - [x] UPDATE a Product
 - [x] DELETE a Product
 
 **Before proceeding, confirm the following behavior:**
 
-- [ ] Can query to view all Products associated with a single Supplier
-- [ ] Can query to view all Products associated with a single Category
+- [x] Can query to view all Products associated with a single Supplier
+- [x] Can query to view all Products associated with a single Category
 
 ### Milestone 2 - Confirm Routes, Controllers
 

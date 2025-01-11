@@ -23,6 +23,17 @@ async function suppliersListGet(req, res) {
   res.json({ suppliers: suppliers })
 }
 
+async function supplierProductsGet(req, res) {
+  const { id } = req.params
+  const supplier = await db.getSupplier(id)
+  if (supplier.length == 0) {
+    return res.status(404).json({ message: 'Supplier not found. ' })
+  }
+
+  const products = await db.getProductsBySupplier(id)
+  res.json({ products: products })
+}
+
 async function supplierCreatePost(req, res) {
   console.log(
     `saving supplier name: ${req.body.name} email: ${req.body.email} phone: ${req.body.phone}`,
@@ -63,8 +74,9 @@ async function supplierDelete(req, res) {
 }
 
 module.exports = {
-  suppliersListGet,
   supplierGet,
+  suppliersListGet,
+  supplierProductsGet,
   supplierCreatePost,
   supplierUpdatePut,
   supplierDelete,
